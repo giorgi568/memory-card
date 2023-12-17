@@ -2,6 +2,7 @@ import './App.css';
 import Card from './components/card';
 import { useEffect, useState } from 'react';
 import pokemon from 'pokemontcgsdk';
+import ShuffleText from 'react-shuffle-text';
 
 const apiKey = '67ad5049-e897-4ba3-9ab3-551d28fcb6b6';
 function getRandomNumber(n) {
@@ -84,8 +85,8 @@ function App() {
           {' '}
           Start New Game{' '}
         </button>
-      </div> 
-    )
+      </div>
+    );
   }
 
   if (cardInfo.length === 0) {
@@ -94,7 +95,9 @@ function App() {
   return (
     <>
       {playedCards.length < 1 ? (
-        <h2>Test You Memory And Do Not Click On The Same Card Twice </h2>
+        <h2>
+          <ShuffleText content='Test You Memory And Do Not Click On The Same Card Twice'></ShuffleText>
+        </h2>
       ) : (
         <h2>Current Score: {playedCards.length}</h2>
       )}
