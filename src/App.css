@@ -17,11 +17,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 1s ease-in-out;
 }
-.card:hover{
-  background-color: grey;
-}
+
 .cardWrapper{
   display: flex;
   gap: 15px;
+  height: 400px;
 }

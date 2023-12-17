@@ -16,22 +16,22 @@ export default function Card({ imageUrl, name, handleOnClick }) {
     return () => {
       image.onload = null;
     };
-  }),
-    [imageUrl];
+  }, [imageUrl]);
 
   return (
     <div>
       {console.log(555555555555555)}
       {!imageLoaded ? (
-        <div className='card'> Loading ... </div>
+        <h3 className='card'> Loading ... </h3>
       ) : (
-        <Tilt>
+        <Tilt glareEnable='true'>
           <img
             className='card'
             src={imageUrl}
             onLoad={handleOnLoad}
-            onClick={() => handleOnClick(name)}
-            style={{opacity: imageLoaded ? '1' : '0', transition: 'opacity 1s ease-in-out'}}
+            onClick={() => {
+              handleOnClick(name);
+            }}
           />
         </Tilt>
       )}

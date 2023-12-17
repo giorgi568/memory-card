@@ -42,7 +42,7 @@ function App() {
     setGameLost(false);
     pokemon.configure({ apiKey: apiKey });
     pokemon.card
-      .where({ pageSize: 9, page: getRandomNumber(500) })
+      .where({ pageSize: 7, page: getRandomNumber(500) })
       .then((results) => {
         const newCardInfo = results.data.map((result) => ({
           name: result.name,
@@ -57,7 +57,7 @@ function App() {
   if (gameLost) {
     return (
       <div>
-        <h2> You Lost The Game, your score was - {playedCards.length} </h2>
+        <h2> You Lost The Game, Your Score Was - {playedCards.length} </h2>
         <button
           onClick={() => {
             setPlayedCards([]);
@@ -73,7 +73,7 @@ function App() {
   } else if (gameWin) {
     return (
       <div>
-        <h2>congragulations! you have won</h2>
+        <h2>congragulations! You Have Won</h2>
         <button
           onClick={() => {
             setPlayedCards([]);
@@ -82,7 +82,7 @@ function App() {
           }}
         >
           {' '}
-          start new game{' '}
+          Start New Game{' '}
         </button>
       </div> 
     )
