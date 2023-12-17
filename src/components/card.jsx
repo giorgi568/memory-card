@@ -1,27 +1,34 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react';
 
-export default function Card({ imageUrl }) {
+export default function Card({ imageUrl, name, handleOnClick }) {
   const [imageLoaded, setImageLoaded] = useState(false);
-
   const handleOnLoad = () => {
     setImageLoaded(true);
   };
+
+  
   useEffect(() => {
-    setImageLoaded(false);
     let image = new Image();
     image.src = imageUrl;
     image.onload = handleOnLoad;
-  },[imageUrl]);
+    return () => {
+      image.onload = null;
+    };
+  });
 
   return (
-    <div
-      // style={{ opacity: imageLoaded ? 1 : 0, transition: 'opacity 0.1s ease-in-out' }}
-    >
+    <div>
       {!imageLoaded ? (
         <div> Loading ... </div>
-      ): (
-        <img className='card' src={imageUrl} onLoad={handleOnLoad} />
-      )} 
+      ) : (
+        <img
+          className='card'
+          src={imageUrl}
+          onLoad={handleOnLoad}
+          onClick={() => handleOnClick(name)}
+        />
+      )}
     </div>
   );
 }
