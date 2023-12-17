@@ -22,10 +22,15 @@ function App() {
   const [cardInfo, setCardInfo] = useState([]);
   const [playedCards, setPlayedCards] = useState([]);
   const [gameLost, setGameLost] = useState(false);
+  const [restartGame, setRestartGame] = useState(false);
+  const [gameWin, setGameWin] = useState(false);
   let cardsForDisplay;
 
   const handleOnClick = (name) => {
-    if (playedCards.includes(name)) {
+    console.log(gameWin, 888888);
+    if (playedCards.length >= 4) {
+      setGameWin(true);
+    } else if (playedCards.includes(name)) {
       setGameLost(true);
     } else {
       setPlayedCards((prevPlayedCards) => [...prevPlayedCards, name]);
@@ -33,10 +38,11 @@ function App() {
   };
 
   useEffect(() => {
+    setRestartGame(false);
     setGameLost(false);
     pokemon.configure({ apiKey: apiKey });
     pokemon.card
-      .where({ pageSize: 7, page: getRandomNumber(500) })
+      .where({ pageSize: 9, page: getRandomNumber(500) })
       .then((results) => {
         const newCardInfo = results.data.map((result) => ({
           name: result.name,
@@ -44,17 +50,42 @@ function App() {
         }));
         setCardInfo(newCardInfo);
       });
-  }, []);
+  }, [restartGame]);
 
   cardsForDisplay = getRandomCards(cardInfo, 5);
 
   if (gameLost) {
     return (
       <div>
-        <div> You Lost The Game, your score was - {playedCards.length} </div>
-        <button> start new game </button>
+        <h2> You Lost The Game, your score was - {playedCards.length} </h2>
+        <button
+          onClick={() => {
+            setPlayedCards([]);
+            setGameLost(false);
+            setRestartGame(true);
+          }}
+        >
+          {' '}
+          start new game{' '}
+        </button>
       </div>
     );
+  } else if (gameWin) {
+    return (
+      <div>
+        <h2>congragulations! you have won</h2>
+        <button
+          onClick={() => {
+            setPlayedCards([]);
+            setGameWin(false);
+            setRestartGame(true);
+          }}
+        >
+          {' '}
+          start new game{' '}
+        </button>
+      </div> 
+    )
   }
 
   if (cardInfo.length === 0) {
@@ -62,19 +93,24 @@ function App() {
   }
   return (
     <>
-      {/* {console.log(playedCards, 999)} */}
-      <div>{playedCards.length}</div>
-      {cardsForDisplay &&
-        cardsForDisplay.map((card, index) => {
-          return (
-            <Card
-              key={index}
-              imageUrl={card.image}
-              name={card.name}
-              handleOnClick={handleOnClick}
-            ></Card>
-          );
-        })}
+      {playedCards.length < 1 ? (
+        <h2>Test You Memory And Do Not Click On The Same Card Twice </h2>
+      ) : (
+        <h2>Current Score: {playedCards.length}</h2>
+      )}
+      <div className='cardWrapper'>
+        {cardsForDisplay &&
+          cardsForDisplay.map((card, index) => {
+            return (
+              <Card
+                key={index}
+                imageUrl={card.image}
+                name={card.name}
+                handleOnClick={handleOnClick}
+              ></Card>
+            );
+          })}
+      </div>
     </>
   );
 }

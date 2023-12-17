@@ -4,7 +4,8 @@
   padding: 2rem;
   text-align: center;
   display: flex;
-  gap: 15px;
+  flex-direction: column;
+  gap: 55px;
 }
 .card{
   width: 240px;
@@ -13,7 +14,14 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .card:hover{
   background-color: grey;
+}
+.cardWrapper{
+  display: flex;
+  gap: 15px;
 }
