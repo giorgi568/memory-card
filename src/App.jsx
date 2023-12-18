@@ -9,7 +9,6 @@ function getRandomNumber(n) {
   return Math.round(Math.random() * n);
 }
 function getRandomCards(arr, n) {
-  console.log(arr, 555);
   let curArr = [...arr];
   let arrOfCards = [];
   for (let i = 0; i < n; i++) {
@@ -28,14 +27,14 @@ function App() {
   let cardsForDisplay;
 
   const handleOnClick = (name) => {
-    console.log(gameWin, 888888);
-    if (playedCards.length >= 4) {
-      setGameWin(true);
-    } else if (playedCards.includes(name)) {
+    if (playedCards.includes(name)) {
       setGameLost(true);
+    } else if (playedCards.length >= 4) {
+      setGameWin(true);
     } else {
       setPlayedCards((prevPlayedCards) => [...prevPlayedCards, name]);
     }
+    playedCards.includes(name)
   };
 
   useEffect(() => {
@@ -99,7 +98,7 @@ function App() {
           <ShuffleText content='Test You Memory And Do Not Click On The Same Card Twice'></ShuffleText>
         </h2>
       ) : (
-        <h2>Current Score: {playedCards.length}</h2>
+        <h2>Current Score: {playedCards.length} {'/'} {cardsForDisplay.length}</h2>
       )}
       <div className='cardWrapper'>
         {cardsForDisplay &&

@@ -20,7 +20,6 @@ export default function Card({ imageUrl, name, handleOnClick }) {
 
   return (
     <div>
-      {console.log(555555555555555)}
       {!imageLoaded ? (
         <h3 className='card'> Loading ... </h3>
       ) : (
