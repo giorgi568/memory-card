@@ -3,6 +3,7 @@ import Card from './components/card';
 import { useEffect, useState } from 'react';
 import pokemon from 'pokemontcgsdk';
 import ShuffleText from 'react-shuffle-text';
+import useSound from 'use-sound';
 
 const apiKey = '67ad5049-e897-4ba3-9ab3-551d28fcb6b6';
 function getRandomNumber(n) {
@@ -24,6 +25,8 @@ function App() {
   const [gameLost, setGameLost] = useState(false);
   const [restartGame, setRestartGame] = useState(false);
   const [gameWin, setGameWin] = useState(false);
+  const [playSound] = useSound('src/assets/card.wav');
+
   let cardsForDisplay;
 
   const handleOnClick = (name) => {
@@ -33,11 +36,13 @@ function App() {
       setGameWin(true);
     } else {
       setPlayedCards((prevPlayedCards) => [...prevPlayedCards, name]);
+      playSound();
     }
     playedCards.includes(name)
   };
 
   useEffect(() => {
+    playSound();
     setRestartGame(false);
     setGameLost(false);
     pokemon.configure({ apiKey: apiKey });
@@ -50,7 +55,7 @@ function App() {
         }));
         setCardInfo(newCardInfo);
       });
-  }, [restartGame]);
+  }, [restartGame, playSound]);
 
   cardsForDisplay = getRandomCards(cardInfo, 5);
 
