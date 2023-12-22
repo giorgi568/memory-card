@@ -42,6 +42,7 @@ function App() {
   };
 
   useEffect(() => {
+    console.log(playSound)
     playSound();
     setRestartGame(false);
     setGameLost(false);
@@ -100,7 +101,7 @@ function App() {
     <>
       {playedCards.length < 1 ? (
         <h2>
-          <ShuffleText content='Test You Memory And Do Not Click On The Same Card Twice'></ShuffleText>
+          <ShuffleText content='Test Your Memory And Do Not Click On The Same Card Twice'></ShuffleText>
         </h2>
       ) : (
         <h2>Current Score: {playedCards.length} {'/'} {cardsForDisplay.length}</h2>
