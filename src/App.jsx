@@ -25,7 +25,7 @@ function App() {
   const [gameLost, setGameLost] = useState(false);
   const [restartGame, setRestartGame] = useState(false);
   const [gameWin, setGameWin] = useState(false);
-  const [playSound] = useSound('src/assets/card.wav');
+  const [playSound] = useSound('/card.wav');
 
   let cardsForDisplay;
 
@@ -42,8 +42,6 @@ function App() {
   };
 
   useEffect(() => {
-    console.log(playSound)
-    playSound();
     setRestartGame(false);
     setGameLost(false);
     pokemon.configure({ apiKey: apiKey });
@@ -101,7 +99,7 @@ function App() {
     <>
       {playedCards.length < 1 ? (
         <h2>
-          <ShuffleText content='Test Your Memory And Do Not Click On The Same Card Twice'></ShuffleText>
+          <ShuffleText content='Test Your Memory And Do Not Click On The Same Card Twice' charIncInterval={10} charFrameTime={10} charFrames={10}></ShuffleText>
         </h2>
       ) : (
         <h2>Current Score: {playedCards.length} {'/'} {cardsForDisplay.length}</h2>
