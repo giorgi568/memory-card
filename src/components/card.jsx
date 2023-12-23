@@ -1,6 +1,6 @@
-/* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react';
 import Tilt from 'react-parallax-tilt';
+import PropTypes from 'prop-types';
 
 export default function Card({ imageUrl, name, handleOnClick }) {
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -37,3 +37,9 @@ export default function Card({ imageUrl, name, handleOnClick }) {
     </div>
   );
 }
+
+Card.propTypes = {
+  name: PropTypes.string,
+  imageUrl: PropTypes.string,
+  handleOnClick: PropTypes.func,
+};
